@@ -2,12 +2,15 @@
 
 # === initialize === #
 import os
+import sys
 import time
 import shutil
 ut = time.time()
 while_flag = True
 error_flag = False
 def flag_initialize():
+    global while_flag
+    global error_flag
     while_flag = True
     error_flag = False
 flag_initialize()
@@ -50,13 +53,14 @@ if bool(backup_flag) == True:
             if bool(error_flag) == False:
                 backupYN1 = input()
                 if backupYN1 == "Y" or backupYN1 == "y":
-                    print("バックアップを開始します...")
+                    print("サーバーを起動します。")
                     backup_flag = True
                     while_flag = False
                 elif backupYN1 == "n" or backupYN1 == "N":
-                    print("バックアップしないでサーバーを起動します...")
+                    print("終了します...")
                     backup_flag = False
                     while_flag = False
+                    exit()
                 else:
                     print("Y/N以外が入力されました。")
                     print()
