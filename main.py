@@ -1,35 +1,41 @@
 # coding: utf-8
-# === start initialize ===
+
+# === initialize === #
 import os
 import time
+import shutil
 ut = time.time()
-boolsec = True
-boolsec2 = True
+while_flag = True
 error_flag = False
-# === end initialize ===
+def flag_initialize():
+    while_flag = True
+    error_flag = False
+flag_initialize()
+# === end initialize === #
 
-
-while bool(boolsec):
+# === ask user if want to backup === #
+while bool(while_flag):
     print("サーバー起動前にバックアップしますか？(Y/N)")
     if bool(error_flag) == False:
         backupYN1 = input()
         if backupYN1 == "Y" or backupYN1 == "y":
             print("バックアップを開始します...")
             backup_flag = True
-            boolsec = False
+            while_flag = False
         elif backupYN1 == "n" or backupYN1 == "N":
             print("バックアップしないでサーバーを起動します...")
             backup_flag = False
-            boolsec = False
+            while_flag = False
         else:
             print("Y/N以外が入力されました。")
             print()
+# === end "ask user if want to backup" === #
 
-error_flag = False
+flag_initialize()
 
+# === backup data === #
 if bool(backup_flag) == True:
     backup_error_flag = False
-    import shutil
     try:
         shutil.copytree(os.getcwd(),"../Backup"+"/"+str(ut)+"/")
     except:
@@ -38,7 +44,7 @@ if bool(backup_flag) == True:
         print("バックアップが完了しました。")
         print("サーバーを起動します...")
     else:
-        while bool(boolsec2):
+        while bool(while_flag):
             print("バックアップに失敗しました。")
             print("サーバーを起動しますか？")
             if bool(error_flag) == False:
@@ -46,11 +52,12 @@ if bool(backup_flag) == True:
                 if backupYN1 == "Y" or backupYN1 == "y":
                     print("バックアップを開始します...")
                     backup_flag = True
-                    boolsec = False
+                    while_flag = False
                 elif backupYN1 == "n" or backupYN1 == "N":
                     print("バックアップしないでサーバーを起動します...")
                     backup_flag = False
-                    boolsec = False
+                    while_flag = False
                 else:
                     print("Y/N以外が入力されました。")
                     print()
+    # === end "backup data" === #
