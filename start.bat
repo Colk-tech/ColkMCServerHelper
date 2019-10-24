@@ -1,5 +1,4 @@
 @echo off
-
 set /p pushKey=サーバー起動前にバックアップしますか(y/n)？  : %pushKey%
 if "%pushKey%"=="y" (
 	echo バックアップを開始します...
@@ -15,7 +14,6 @@ if "%pushKey%"=="y" (
 	echo y以外が入力されました。バックアップしないで起動します...
 )
 echo.
-
 java -Xms4096M -Xmx4096M -jar Mohist-36b8702-server.jar -o true
 
 set /p pushKey=バックアップしますか(y/n)？  : %pushKey%
