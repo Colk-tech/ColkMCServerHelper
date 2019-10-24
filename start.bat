@@ -1,36 +1,36 @@
 @echo off
 
-set /p pushKey=ƒT[ƒo[‹N“®‘O‚ÉƒoƒbƒNƒAƒbƒv‚µ‚Ü‚·‚©(y/n)H  : %pushKey%
+set /p pushKey=ã‚µãƒ¼ãƒãƒ¼èµ·å‹•å‰ã«ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã—ã¾ã™ã‹(y/n)ï¼Ÿ  : %pushKey%
 if "%pushKey%"=="y" (
-	echo ƒoƒbƒNƒAƒbƒv‚ðŠJŽn‚µ‚Ü‚·...
+	echo ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‚’é–‹å§‹ã—ã¾ã™...
 	echo.
 	xcopy /s /q %CD% C:\MNMCBUs\Rikaisha_kettle_backup1\%date:~0,4%%date:~5,2%%date:~8,2%%time:~0,2%%time:~3,2%%time:~6,2%\
 	echo.
-	echo ˆ—‚ªŠ®—¹‚µ‚Ü‚µ‚½BƒT[ƒo[‚ð‹N“®‚µ‚Ü‚·...
+	echo å‡¦ç†ãŒå®Œäº†ã—ã¾ã—ãŸã€‚ã‚µãƒ¼ãƒãƒ¼ã‚’èµ·å‹•ã—ã¾ã™...
 ) else if "%pushKey%"=="n" ( 
-	echo ƒoƒbƒNƒAƒbƒv‚µ‚È‚¢‚Å‹N“®‚µ‚Ü‚·...
+	echo ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã—ãªã„ã§èµ·å‹•ã—ã¾ã™...
 ) else if "%pushKey%"=="Y" ( 
-	echo ‘å•¶Žš‚ª“ü—Í‚³‚ê‚Ü‚µ‚½BƒoƒbƒNƒAƒbƒv‚µ‚È‚¢‚Å‹N“®‚µ‚Ü‚·...
+	echo å¤§æ–‡å­—ãŒå…¥åŠ›ã•ã‚Œã¾ã—ãŸã€‚ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã—ãªã„ã§èµ·å‹•ã—ã¾ã™...
 )else (
-	echo yˆÈŠO‚ª“ü—Í‚³‚ê‚Ü‚µ‚½BƒoƒbƒNƒAƒbƒv‚µ‚È‚¢‚Å‹N“®‚µ‚Ü‚·...
+	echo yä»¥å¤–ãŒå…¥åŠ›ã•ã‚Œã¾ã—ãŸã€‚ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã—ãªã„ã§èµ·å‹•ã—ã¾ã™...
 )
 echo.
 
 java -Xms4096M -Xmx4096M -jar Mohist-36b8702-server.jar -o true
 
-set /p pushKey=ƒoƒbƒNƒAƒbƒv‚µ‚Ü‚·‚©(y/n)H  : %pushKey%
+set /p pushKey=ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã—ã¾ã™ã‹(y/n)ï¼Ÿ  : %pushKey%
 if "%pushKey%"=="y" (
-	echo ƒoƒbƒNƒAƒbƒv‚ðŠJŽn‚µ‚Ü‚·...
+	echo ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‚’é–‹å§‹ã—ã¾ã™...
 	echo.
 	xcopy /s /q %CD% C:\COLKMCBUs\Rikaisha_kettle_backup\%date:~0,4%%date:~5,2%%date:~8,2%%time:~0,2%%time:~3,2%%time:~6,2%\
 	echo.
-	echo ˆ—‚ªŠ®—¹‚µ‚Ü‚µ‚½B
+	echo å‡¦ç†ãŒå®Œäº†ã—ã¾ã—ãŸã€‚
 ) else if "%pushKey%"=="n" ( 
-	echo ƒT[ƒo‚ðI—¹‚µ‚Ü‚µ‚½B
+	echo ã‚µãƒ¼ãƒã‚’çµ‚äº†ã—ã¾ã—ãŸã€‚
 ) else if "%pushKey%"=="Y" ( 
-	echo ‘å•¶Žš‚ª“ü—Í‚³‚ê‚Ü‚µ‚½BƒT[ƒo[‚ðI—¹‚µ‚Ü‚µ‚½B
+	echo å¤§æ–‡å­—ãŒå…¥åŠ›ã•ã‚Œã¾ã—ãŸã€‚ã‚µãƒ¼ãƒãƒ¼ã‚’çµ‚äº†ã—ã¾ã—ãŸã€‚
 )else (
-	echo yˆÈŠO‚ª“ü—Í‚³‚ê‚Ü‚µ‚½BƒT[ƒo[‚ðI—¹‚µ‚Ü‚µ‚½B
+	echo yä»¥å¤–ãŒå…¥åŠ›ã•ã‚Œã¾ã—ãŸã€‚ã‚µãƒ¼ãƒãƒ¼ã‚’çµ‚äº†ã—ã¾ã—ãŸã€‚
 )
 echo.
 
