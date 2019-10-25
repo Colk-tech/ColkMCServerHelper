@@ -82,15 +82,13 @@ while bool(while_flag):
             backup_flag = True
             while_flag = False
         elif backupYN1 == "n" or backupYN1 == "N":
-            print("バックアップしないでサーバーを起動します...")
+            print("バックアップしないで終了します...")
             backup_flag = False
             while_flag = False
         else:
             print("Y/N以外が入力されました。")
             print()
 # === end "ask user if want to backup" === #
-
-flag_initialize()
 
 if bool(backup_flag) == True:
     backup_error_flag = False
@@ -101,7 +99,7 @@ if bool(backup_flag) == True:
     if bool(backup_error_flag) == False:
         print("バックアップが完了しました。")
     elif bool(backup_error_flag) == True:
-        while bool(while_flag):
             print("バックアップに失敗しました。")
+            print("終了後、手動でバックアップすることをおすすめします。")
 
 print("ServerHelperを終了します...")
