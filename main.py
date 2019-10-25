@@ -90,8 +90,9 @@ while bool(while_flag):
             print()
 # === end "ask user if want to backup" === #
 
+backup_error_flag = False
+
 if bool(backup_flag) == True:
-    backup_error_flag = False
     try:
         shutil.copytree(os.getcwd(), "../Backup" + "/" + str(ut) + "/")
     except:
@@ -99,7 +100,9 @@ if bool(backup_flag) == True:
     if bool(backup_error_flag) == False:
         print("バックアップが完了しました。")
     elif bool(backup_error_flag) == True:
-            print("バックアップに失敗しました。")
-            print("終了後、手動でバックアップすることをおすすめします。")
+        print("バックアップに失敗しました。")
+        print("終了後、手動でバックアップすることをおすすめします。")
 
 print("ServerHelperを終了します...")
+print("続行するには任意の文字列を入力してください...")
+STOPPer = input()
