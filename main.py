@@ -3,6 +3,8 @@
 # === initialize === #
 import os
 import sys
+import ConfigParser
+# refer https://uxmilk.jp/20599 #
 import time
 import shutil
 ut = time.time()
