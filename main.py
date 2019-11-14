@@ -119,4 +119,4 @@ if bool(backup_is) == True:
 
 print("ServerHelperを終了します...")
 print("続行するには任意の文字列を入力してください...")
-STOPPer = input()
+input()
