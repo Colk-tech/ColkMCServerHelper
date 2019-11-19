@@ -15,7 +15,7 @@ def flag_initialize():
 
     Parameters
     ----------
-    while_is : bool
+    while_is : bool45
     The flag for while sentences
     (Every while sentences uses same flag).
     error_is : bool
