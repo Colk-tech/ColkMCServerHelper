@@ -2,6 +2,7 @@
 
 # === initialize === #
 import os
+import inputimeout
 import sys
 import ConfigParser
 # refer https://uxmilk.jp/20599 #
@@ -23,8 +24,14 @@ def flag_initialize():
     """
     global while_is
     global error_is
+    global shutdown_is
+    global backup_error_is
+    global shutdown_error_is
+    shutdown_is = False
+    backup_error_is = False
     while_is = True
     error_is = False
+    shutdown_error_is = False
 flag_initialize()
 Current_Directory: str = os.getcwd()
 # === end initialize === #
@@ -90,18 +97,24 @@ os.system("java -Xms4096M -Xmx4096M -jar" + " server.jar " + "-o true")
 while bool(while_is):
     print("サーバーをバックアップしますか？(Y/N)")
     if bool(error_is) == False:
-        usr_input_backup = input()
-        if usr_input_backup == "Y" or usr_input_backup == "y":
-            print("バックアップを開始します...")
+        try:
+            usr_input_backup = inputimeout(prompt='>>', timeout=60)
+            if usr_input_backup == "Y" or usr_input_backup == "y":
+                print("バックアップを開始します...")
+                backup_is = True
+                while_is = False
+            elif usr_input_backup == "n" or usr_input_backup == "N":
+                print("バックアップしないで終了します...")
+                backup_is = False
+                while_is = False
+            else:
+                print("Y/N以外が入力されました。")
+                print()
+        except:
+            print("入力がタイムアウトしました。")
+            print("強制的にバックアップします。")
             backup_is = True
             while_is = False
-        elif usr_input_backup == "n" or usr_input_backup == "N":
-            print("バックアップしないで終了します...")
-            backup_is = False
-            while_is = False
-        else:
-            print("Y/N以外が入力されました。")
-            print()
 # === end "ask user if want to backup" === #
 
 backup_error_is = False
@@ -116,6 +129,39 @@ if bool(backup_is) == True:
     elif bool(backup_error_is) == True:
         print("バックアップに失敗しました。")
         print("終了後、手動でバックアップすることをおすすめします。")
+
+print("続けて、コンピューターをシャットダウンしますか?")
+try:
+    usr_input_shutdown = inputimeout(prompt='', timeout=60)
+    if usr_input_shutdown == "Y" or usr_input_shutdown == "y":
+        print("シャットダウンします...")
+        shutdown_is = True
+        while_is = False
+    elif usr_input_shutdown == "n" or usr_input_shutdown == "N":
+        print("シャットダウンせずに終了します...")
+        shutdown_is = False
+        while_is = False
+    else:
+        print("シャットダウンせずに終了します...")
+        shutdown_is = False
+        while_is = False
+except:
+    print("入力がタイムアウトしました。")
+    print("強制的にシャットダウンします。")
+    shutdown_is = True
+
+if bool(shutdown_is) == True:
+    try:
+        import subprocess
+        subprocess.call(["shutdown", "-f", "-s", "-t", "60"])
+    except:
+        shutdown_error_is = True
+    if bool(shutdown_error_is) == False:
+        print("シャットダウンします...")
+        exit(0)
+    elif bool(shutdown_error_is) == True:
+        print("シャットダウンに失敗しました。")
+        print("遠隔からのシャットダウンを試みてください。")
 
 print("ServerHelperを終了します...")
 print("続行するには任意の文字列を入力してください...")
