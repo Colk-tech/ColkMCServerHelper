@@ -7,12 +7,38 @@ import sys
 import time
 import configparser
 
+config = configparser.ConfigParser()
+configName = "settings.ini"
+
+CD = os.getcwd()
+
+section1 = 'server'
+section2 = 'jvm'
+section3 = 'backup'
+
+if not os.path.isfile(CD + "/" + configName):
+    #section1-server
+    config.add_section(section1)
+    config.set(section1, 'server-jar', 'server.jar')
+    #section2-jvm
+    config.add_section(section2)
+    config.set(section2, 'xms', '1024M')
+    config.set(section2, 'xmx', '2048M')
+    #section3-backup
+    config.add_section(section3)
+    config.set(section3, 'place', '../backups')
+
+    with open('setting.ini', 'w') as file:
+        config.write(file)
+
+MSserver = config.get(section1, 'server-jar')
+MSxms = config.get(section1, 'xms')
+MSxmx = config.get(section2, 'xmx')
+BUplace = config.get(section2, 'place')
+
 userInputed = False
 
-backupPlace = "../Backup" + "/" + str(time.time()) + "/"
-serverName = "Mohist-0c5f67e-server.jar"
-Xms = "4096M"
-Xmx = "4096M"
+backupPlace = BUplace + str(time.time()) + "/"
 
 def backupper(backupPlace):
     try:
@@ -49,7 +75,7 @@ flagInitialize()
 
 print("Booting server...")
 os.system("cd" + " " + '"'+os.getcwd()+'"')
-os.system("java" + " " + "-Xms" + Xms + " " + "-Xmx" + Xmx + " " + "-jar" + " " + serverName + " " + "-o true")
+os.system("java" + " " + "-Xms" + MSxms + " " + "-Xmx" + MSxmx + " " + "-jar" + " " + MSserver + " " + "-o true")
 #os.system("python" + " " + "another.py")
 
 while not userInputed:
