@@ -75,7 +75,6 @@ flagInitialize()
 print("Booting server...")
 os.system("cd" + " " + '"'+os.getcwd()+'"')
 os.system("java" + " " + "-Xms" + MSxms + " " + "-Xmx" + MSxmx + " " + "-jar" + " " + MSserver + " " + "-o true")
-#os.system("python" + " " + "another.py")
 
 while not userInputed:
     print("Do you want to backup the server? (Y/N)")
