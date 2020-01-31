@@ -7,11 +7,10 @@ import sys
 import time
 import configparser
 
-config = configparser.ConfigParser()
-configName = "settings.ini"
-
 CD = os.getcwd()
 
+config = configparser.ConfigParser()
+configName = "setting-cmcsh.ini"
 section1 = 'server'
 section2 = 'jvm'
 section3 = 'backup'
@@ -32,9 +31,9 @@ if not os.path.isfile(CD + "/" + configName):
         config.write(file)
 
 MSserver = config.get(section1, 'server-jar')
-MSxms = config.get(section1, 'xms')
+MSxms = config.get(section2, 'xms')
 MSxmx = config.get(section2, 'xmx')
-BUplace = config.get(section2, 'place')
+BUplace = config.get(section3, 'place')
 
 userInputed = False
 
@@ -68,7 +67,7 @@ while not userInputed:
         print("We are not going to backup server!")
         userInputed = True
     else:
-        print("You entered something else!")
+        print("You entered something wrong!")
         userInputed = False
 
 flagInitialize()
