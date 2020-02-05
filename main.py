@@ -6,8 +6,9 @@ import time
 import sys
 import time
 import configparser
+from typing import Any
 
-CD = os.getcwd()
+currentDirectory = os.getcwd()
 
 config = configparser.ConfigParser()
 configName = "setting-cmcsh.ini"
@@ -15,7 +16,9 @@ section1 = 'server'
 section2 = 'jvm'
 section3 = 'backup'
 
-if not os.path.isfile(CD + "/" + configName):
+if not os.path.isfile(currentDirectory + "/" + configName):
+    print("We couldn't find setting file.")
+    print("Create the setting file.")
     #section1-server
     config.add_section(section1)
     config.set(section1, 'server-jar', 'server.jar')
@@ -27,17 +30,25 @@ if not os.path.isfile(CD + "/" + configName):
     config.add_section(section3)
     config.set(section3, 'place', '../backups')
 
-    with open('setting.ini', 'w') as file:
+    with open(configName, 'w') as file:
         config.write(file)
 
+config.read(configName)
 MSserver = config.get(section1, 'server-jar')
 MSxms = config.get(section2, 'xms')
 MSxmx = config.get(section2, 'xmx')
 BUplace = config.get(section3, 'place')
-
-userInputed = False
-
 backupPlace = BUplace + str(time.time()) + "/"
+
+def backupCore(backupPlace):
+    if bool(inputter("Do you want to backup this server? (Y/N)")):
+        if backupper(backupPlace):
+            print("Backup success!")
+        else:
+            print("Backup failed...")
+            print("Try to backup manually.")
+    else:
+        print("We are not going to backup.")
 
 def backupper(backupPlace):
     try:
@@ -46,53 +57,27 @@ def backupper(backupPlace):
     except:
         return False
 
-def flagInitialize():
-    global userInputed
-    userInputed = False
-
-flagInitialize()
-
-while not userInputed:
-    print("Do you want to backup before boot the server? (Y/N)")
-    usrInput = str.upper(input())
-    if usrInput == "Y":
-        if backupper(backupPlace):
-            print("Backuped!")
-            userInputed = True
+def inputter(message,errorMessage = "You entered something wrong! Please answer in Y/N."):
+    isuserinput = False
+    while not isuserinput:
+        print(str(message))
+        userinput = str.upper(input())
+        if userinput == "Y":
+            isuserinput = True
+            return True
+        elif userinput == "N":
+            isuserinput = True
+            return False
         else:
-            print("Failed to backup!")
-            print("Try to backup yourself...")
-            userInputed = True
-    elif usrInput == "N":
-        print("We are not going to backup server!")
-        userInputed = True
-    else:
-        print("You entered something wrong!")
-        userInputed = False
+            print(str(errorMessage))
+            isuserinput = False
 
-flagInitialize()
+#ここからが実際に動くところ
 
-print("Booting server...")
-os.system("cd" + " " + '"'+os.getcwd()+'"')
+backupCore(backupPlace)
+
+os.system("cd" + " " + '"' + os.getcwd() + '"')
+print(MSserver+MSxms+MSxmx+BUplace)
 os.system("java" + " " + "-Xms" + MSxms + " " + "-Xmx" + MSxmx + " " + "-jar" + " " + MSserver + " " + "-o true")
 
-while not userInputed:
-    print("Do you want to backup the server? (Y/N)")
-    usrInput = str.upper(input())
-    if usrInput == "Y":
-        if backupper(backupPlace):
-            print("Backuped!")
-            userInputed = True
-        else:
-            print("Failed to backup!")
-            print("Try to backup yourself...")
-            userInputed = True
-    elif usrInput == "N":
-        print("We are not going to backup server!")
-        userInputed = True
-    else:
-        print("You entered something else!")
-        userInputed = False
-
-print("Shut downing this server helper...")
-usrInput = input()
+backupCore(backupPlace)
