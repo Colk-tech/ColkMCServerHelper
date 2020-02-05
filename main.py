@@ -3,10 +3,7 @@
 import os
 import shutil
 import time
-import sys
-import time
 import configparser
-from typing import Any
 
 currentDirectory = os.getcwd()
 
@@ -17,8 +14,6 @@ section2 = 'jvm'
 section3 = 'backup'
 
 if not os.path.isfile(currentDirectory + "/" + configName):
-    print("We couldn't find setting file.")
-    print("Create the setting file.")
     #section1-server
     config.add_section(section1)
     config.set(section1, 'server-jar', 'server.jar')
