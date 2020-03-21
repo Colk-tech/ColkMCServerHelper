@@ -4,8 +4,7 @@ from lib.utils import *
 
 
 def main():
-    msg = MessageManager(r"../bus")
-
+    msg = MessageManager(r"D:\bus")
     backup = BackupManager()
 
 if __name__ == "__main__":
