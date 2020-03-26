@@ -1,78 +1,34 @@
-# coding: utf-8
-
 import os
-import shutil
-import time
-import configparser
+import subprocess
 
-currentDirectory = os.getcwd()
+from lib.utils import *
 
-config = configparser.ConfigParser()
-configName = "setting-cmcsh.ini"
-section1 = 'server'
-section2 = 'jvm'
-section3 = 'backup'
 
-if not os.path.isfile(currentDirectory + "/" + configName):
-    #section1-server
-    config.add_section(section1)
-    config.set(section1, 'server-jar', 'server.jar')
-    #section2-jvm
-    config.add_section(section2)
-    config.set(section2, 'xms', '1024M')
-    config.set(section2, 'xmx', '2048M')
-    #section3-backup
-    config.add_section(section3)
-    config.set(section3, 'place', '../backups')
+def main():
+    msg = MessageManager(file_path="properties.json")
+    backup = BackupManager(backup_directory = str(msg.get("settings","backup-place")))
 
-    with open(configName, 'w') as file:
-        config.write(file)
 
-config.read(configName)
-MSserver = config.get(section1, 'server-jar')
-MSxms = config.get(section2, 'xms')
-MSxmx = config.get(section2, 'xmx')
-BUplace = config.get(section3, 'place')
-backupPlace = BUplace + str(time.time()) + "/"
+    print(msg.get("outputs","backup?"))
+    if input().lower() == "y":
+        print(msg.get("outputs","start-backup"))
+        if backup.do():
+            print(msg.get("outputs","bu-success"))
 
-def backupCore(backupPlace):
-    if bool(inputter("Do you want to backup this server? (Y/N)")):
-        if backupper(backupPlace):
-            print("Backup success!")
-        else:
-            print("Backup failed...")
-            print("Try to backup manually.")
-    else:
-        print("We are not going to backup.")
 
-def backupper(backupPlace):
-    try:
-        shutil.copytree(os.getcwd(), backupPlace)
-        return True
-    except:
-        return False
+    print("outputs","boot")
 
-def inputter(message,errorMessage = "You entered something wrong! Please answer in Y/N."):
-    isuserinput = False
-    while not isuserinput:
-        print(str(message))
-        userinput = str.upper(input())
-        if userinput == "Y":
-            isuserinput = True
-            return True
-        elif userinput == "N":
-            isuserinput = True
-            return False
-        else:
-            print(str(errorMessage))
-            isuserinput = False
 
-#ここからが実際に動くところ
+    if not (subprocess.call(msg.get("settings","jvm-args",(msg.get("settings","jar-file")))) == 0):
+        print(msg.get("outputs","exited-error"))
 
-backupCore(backupPlace)
+    print(msg.get("outputs","backup?"))
+    if input().lower() == "y":
+        print(msg.get("outputs","start-backup"))
+        if backup.do():
+            print(msg.get("outputs","bu-success"))
 
-os.system("cd" + " " + '"' + os.getcwd() + '"')
-print(MSserver+MSxms+MSxmx+BUplace)
-os.system("java" + " " + "-Xms" + MSxms + " " + "-Xmx" + MSxmx + " " + "-jar" + " " + MSserver + " " + "-o true")
 
-backupCore(backupPlace)
+
+if __name__ == "__main__":
+    main()
