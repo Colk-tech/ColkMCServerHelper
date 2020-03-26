@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 import json
 import time
 import random
@@ -14,11 +16,12 @@ class MessageManager(Singleton):
         JSONを読み込んでインスタンスを作る。
         :param file_path: メッセージ情報が格納されたJSON。通常指定する必要はない。
         """
+
         try:
-            with open(file_path, mode="r") as f:
+            with open(file_path, mode="r", encoding="utf-8") as f:
                 self.json_msg = json.loads(f.read())
         except:
-            print("File doesn't exist or it is incorrect!")
+            raise OSError("File doesn't exist or it is incorrect!\nTried to read : % ")
 
     def get(self, scope, name, *kargs):
         """

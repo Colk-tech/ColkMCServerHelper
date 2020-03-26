@@ -1,7 +1,11 @@
-import os
 import subprocess
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from lib.utils import *
+
 
 
 def main():
@@ -16,7 +20,7 @@ def main():
             print(msg.get("outputs","bu-success"))
 
 
-    print("outputs","boot")
+    print(msg.get("outputs","boot"))
 
 
     if not (subprocess.call(msg.get("settings","jvm-args",(msg.get("settings","jar-file")))) == 0):
