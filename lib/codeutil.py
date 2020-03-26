@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 class Singleton(object):
     """
     これを継承したclassはシングルトンになる
