@@ -7,9 +7,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from lib.utils import *
 
 
+if sys.version_info[0] != 3:
+    raise(RuntimeError("This program is not supported for Python2.x versions\nPlease visit here to install Python3.x:\nhttps://www.python.org/downloads/"))
 
 def main():
-    msg = MessageManager(file_path="properties.json")
+    msg = MessageManager(file_path= os.path.abspath("properties.json"))
     backup = BackupManager(backup_directory = str(msg.get("settings","backup-place")))
 
 
