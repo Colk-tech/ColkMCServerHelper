@@ -16,7 +16,6 @@ class MessageManager(Singleton):
         JSONを読み込んでインスタンスを作る。
         :param file_path: メッセージ情報が格納されたJSON。通常指定する必要はない。
         """
-        print(file_path)
         #try:
         with open(file_path, mode="r", encoding="utf-8") as f:
             self.json_msg = json.loads(f.read())
