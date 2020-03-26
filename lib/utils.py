@@ -9,7 +9,7 @@ from lib.codeutil import Singleton
 
 
 class MessageManager(Singleton):
-    def __init__(self, file_path="messages.json"):
+    def __init__(self, file_path="properties.json"):
         """
         JSONを読み込んでインスタンスを作る。
         :param file_path: メッセージ情報が格納されたJSON。通常指定する必要はない。
@@ -46,7 +46,7 @@ class BackupManager(Singleton):
             except:
                 raise OSError("Failed to create backup directory!")
                 return False
-            self.backup_full_path = os.path.abspath(backup_directory)
+        self.backup_full_path = os.path.abspath(backup_directory)
 
     def do(self):
         try:
@@ -54,3 +54,4 @@ class BackupManager(Singleton):
         except:
             raise OSError("Failed to create backup!\nPlease try to backup yourself.")
             return False
+        return True

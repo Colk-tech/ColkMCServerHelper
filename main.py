@@ -1,11 +1,34 @@
 import os
+import subprocess
 
 from lib.utils import *
 
 
 def main():
-    msg = MessageManager(r"D:\bus")
-    backup = BackupManager()
+    msg = MessageManager(file_path="properties.json")
+    backup = BackupManager(backup_directory = str(msg.get("settings","backup-place")))
+
+
+    print(msg.get("outputs","backup?"))
+    if input().lower() == "y":
+        print(msg.get("outputs","start-backup"))
+        if backup.do():
+            print(msg.get("outputs","bu-success"))
+
+
+    print("outputs","boot")
+
+
+    if not (subprocess.call(msg.get("settings","jvm-args",(msg.get("settings","jar-file")))) == 0):
+        print(msg.get("outputs","exited-error"))
+
+    print(msg.get("outputs","backup?"))
+    if input().lower() == "y":
+        print(msg.get("outputs","start-backup"))
+        if backup.do():
+            print(msg.get("outputs","bu-success"))
+
+
 
 if __name__ == "__main__":
     main()

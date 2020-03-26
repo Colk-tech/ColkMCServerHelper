@@ -1,0 +1,14 @@
+{
+	"outputs": {
+		"backup?": "Do you want to backup this server?",
+		"start-backup": "Starting backup...",
+		"bu-success": "Backup completed successfully!",
+		"boot": "Booting Server...",
+		"exited-error": "Server stopped with error."
+	},
+	"settings": {
+		"jar-file": "server.jar",
+		"jvm-args": "java -server -Xms8G -Xmx8G -XX:+UseG1GC -XX:+DisableExplicitGC -jar {}",
+		"backup-place": "../mc_server_bus/"
+	}
+}
