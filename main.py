@@ -28,6 +28,8 @@ def main():
     if not (subprocess.call(msg.get("settings","jvm-args",(msg.get("settings","jar-file")))) == 0):
         print(msg.get("outputs","exited-error"))
 
+    time.sleep(1)
+
     print(msg.get("outputs","backup?"))
     if input().lower() == "y":
         print(msg.get("outputs","start-backup"))
